@@ -1,7 +1,7 @@
 import { REST, Routes, Collection } from "discord.js";
-import { command as CreateCard } from "./createCard.js";
+import { CreateCardCommand, GetAllCardsCommand } from "./cardCommands.js";
 
-export const commands = [CreateCard];
+export const commands = [CreateCardCommand, GetAllCardsCommand];
 
 export async function registerCommands(
   token: string,
@@ -14,6 +14,6 @@ export async function registerCommands(
   });
 }
 
-export const commandMap = new Collection<string, typeof CreateCard>(
+export const commandMap = new Collection<string, typeof CreateCardCommand>(
   commands.map((c) => [c.data.name, c])
 );
