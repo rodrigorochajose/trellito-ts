@@ -1,7 +1,12 @@
 import { REST, Routes, Collection } from "discord.js";
 import { CreateCardCommand, GetAllCardsCommand } from "./cardCommands.js";
+import { GenerateChangeLog } from "./changelogCommands.js";
 
-export const commands = [CreateCardCommand, GetAllCardsCommand];
+export const commands = [
+  CreateCardCommand,
+  GetAllCardsCommand,
+  GenerateChangeLog,
+];
 
 export async function registerCommands(
   token: string,
