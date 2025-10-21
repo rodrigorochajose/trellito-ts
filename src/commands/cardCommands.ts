@@ -44,7 +44,7 @@ export const CreateCardCommand = {
 
     const selectedList = lists.find((l) => l.name === listName);
     if (!selectedList) {
-      await interaction.reply("**❌ 𝗟𝗶𝘀𝘁𝗮 𝗻𝗮𝗼 𝗲𝗻𝗰𝗼𝗻𝘁𝗿𝗮𝗱𝗮**");
+      await interaction.reply("## ❌ 𝗟𝗶𝘀𝘁𝗮 𝗻𝗮𝗼 𝗲𝗻𝗰𝗼𝗻𝘁𝗿𝗮𝗱𝗮");
       return;
     }
 
@@ -59,10 +59,10 @@ export const CreateCardCommand = {
 
       sendMessage(client, newCard, DSChannel.Novo);
 
-      await interaction.reply(`**𝗖𝗮𝗿𝗱 𝗖𝗿𝗶𝗮𝗱𝗼 ➨** ${card.data.name}`);
+      await interaction.reply(`## **𝗖𝗮𝗿𝗱 𝗖𝗿𝗶𝗮𝗱𝗼 ➨** ${card.data.name}`);
     } catch (err) {
       console.error(err);
-      await interaction.reply("**❌ 𝗘𝗿𝗿𝗼 𝗮𝗼 𝗰𝗿𝗶𝗮𝗿 𝗼 𝗖𝗮𝗿𝗱**");
+      await interaction.reply("## ❌ 𝗘𝗿𝗿𝗼 𝗮𝗼 𝗰𝗿𝗶𝗮𝗿 𝗼 𝗖𝗮𝗿𝗱");
     }
   },
 };
@@ -88,7 +88,7 @@ export const GetAllCardsCommand = {
   async execute(interaction: ChatInputCommandInteraction) {
     if (interaction.channelId != process.env.CHANNEL_INTERACTION || "") {
       await interaction.reply({
-        content: "🚫 𝗘𝘀𝘁𝗲 𝗰𝗼𝗺𝗮𝗻𝗱𝗼 𝗻𝗮𝗼 𝗽𝗼𝗱𝗲 𝘀𝗲𝗿 𝘂𝘀𝗮𝗱𝗼 𝗻𝗲𝘀𝘁𝗲 𝗰𝗮𝗻𝗮𝗹.",
+        content: "## 🚫 𝗘𝘀𝘁𝗲 𝗰𝗼𝗺𝗮𝗻𝗱𝗼 𝗻𝗮𝗼 𝗽𝗼𝗱𝗲 𝘀𝗲𝗿 𝘂𝘀𝗮𝗱𝗼 𝗻𝗲𝘀𝘁𝗲 𝗰𝗮𝗻𝗮𝗹.",
         flags: MessageFlags.Ephemeral,
       });
       return;
@@ -98,7 +98,7 @@ export const GetAllCardsCommand = {
 
     const selectedList = lists.find((l) => l.name === listName);
     if (!selectedList) {
-      await interaction.reply("**❌ 𝗟𝗶𝘀𝘁𝗮 𝗻𝗮𝗼 𝗲𝗻𝗰𝗼𝗻𝘁𝗿𝗮𝗱𝗮**");
+      await interaction.reply("## ❌ 𝗟𝗶𝘀𝘁𝗮 𝗻𝗮𝗼 𝗲𝗻𝗰𝗼𝗻𝘁𝗿𝗮𝗱𝗮");
       return;
     }
 
@@ -106,7 +106,7 @@ export const GetAllCardsCommand = {
       const cards = await getAllCards(selectedList.id);
 
       if (!cards || cards.length === 0) {
-        await interaction.reply("📭 𝗡𝗲𝗻𝗵𝘂𝗺 𝗰𝗮𝗿𝗱 𝗲𝗻𝗰𝗼𝗻𝘁𝗿𝗮𝗱𝗼 𝗻𝗲𝘀𝘁𝗮 𝗹𝗶𝘀𝘁𝗮.");
+        await interaction.reply("## 📭 𝗡𝗲𝗻𝗵𝘂𝗺 𝗰𝗮𝗿𝗱 𝗲𝗻𝗰𝗼𝗻𝘁𝗿𝗮𝗱𝗼 𝗻𝗲𝘀𝘁𝗮 𝗹𝗶𝘀𝘁𝗮.");
         return;
       }
 
@@ -174,7 +174,7 @@ export const GetAllCardsCommand = {
         collector.on("collect", async (i) => {
           if (i.user.id !== interaction.user.id) {
             await i.reply({
-              content: "🚫 𝗔𝗽𝗲𝗻𝗮𝘀 𝗾𝘂𝗲𝗺 𝘂𝘀𝗼𝘂 𝗼 𝗰𝗼𝗺𝗮𝗻𝗱𝗼 𝗽𝗼𝗱𝗲 𝗶𝗻𝘁𝗲𝗿𝗮𝗴𝗶𝗿.",
+              content: "## 🚫 𝗔𝗽𝗲𝗻𝗮𝘀 𝗾𝘂𝗲𝗺 𝘂𝘀𝗼𝘂 𝗼 𝗰𝗼𝗺𝗮𝗻𝗱𝗼 𝗽𝗼𝗱𝗲 𝗶𝗻𝘁𝗲𝗿𝗮𝗴𝗶𝗿.",
               ephemeral: true,
             });
             return;
@@ -198,7 +198,7 @@ export const GetAllCardsCommand = {
       }
     } catch (err) {
       console.error(err);
-      await interaction.reply("**❌ 𝗘𝗿𝗿𝗼 𝗮𝗼 𝗿𝗲𝘀𝗴𝗮𝘁𝗮𝗿 𝗼𝘀 𝗰𝗮𝗿𝗱𝘀.**");
+      await interaction.reply("## ❌ 𝗘𝗿𝗿𝗼 𝗮𝗼 𝗿𝗲𝘀𝗴𝗮𝘁𝗮𝗿 𝗼𝘀 𝗰𝗮𝗿𝗱𝘀");
     }
   },
 };

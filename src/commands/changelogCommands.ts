@@ -3,7 +3,7 @@ import {
   PermissionsBitField,
   SlashCommandBuilder,
 } from "discord.js";
-import { createList, getAllCards, updateList } from "../utils/trello.js";
+import { createList, getAllCards, lists, updateList } from "../utils/trello.js";
 
 export const GenerateChangeLog = {
   data: new SlashCommandBuilder()
@@ -13,30 +13,36 @@ export const GenerateChangeLog = {
 
   async execute(interaction: ChatInputCommandInteraction) {
     try {
-      const listUpdated = await updateList();
+      const listToUpdate = lists.find((e) => e.name == "Finalizado");
 
-      if (!listUpdated) {
-        await interaction.reply("Erro ao atualizar lista");
+      if (!listToUpdate) {
+        await interaction.reply("## ❌ 𝗘𝗿𝗿𝗼 𝗮𝗼 𝗼𝗯𝘁𝗲𝗿 𝗮 𝗹𝗶𝘀𝘁𝗮 𝘀𝗲𝗹𝗲𝗰𝗶𝗼𝗻𝗮𝗱𝗮.");
+        return;
       }
 
-      const newList = await createList();
+      const cards = await getAllCards(listToUpdate.id);
 
-      if (!newList) {
-        await interaction.reply("Erro ao criar nova lista");
+      if (cards.length > 0) {
+        await updateList(listToUpdate.id);
+
+        await createList();
+
+        const changelog = cards
+          .map(
+            (card, index) => `🟢 **${index + 1}. ${card.name}**\n${card.desc}`
+          )
+          .join("\n\n");
+
+        const message = `>>> **🧾 Changelog - Últimas atualizações:**\n\n${changelog}`;
+
+        await interaction.reply(message);
+        return;
       }
 
-      const cards = await getAllCards(listUpdated.id);
-
-      const changelog = cards
-        .map((card, index) => `🟢 **${index + 1}. ${card.name}**\n${card.desc}`)
-        .join("\n\n");
-
-      const message = `>>> **🧾 Changelog - Últimas atualizações:**\n\n${changelog}`;
-
-      await interaction.reply(message);
+      await interaction.reply("## ❌ 𝗟𝗶𝘀𝘁𝗮 '𝗙𝗶𝗻𝗮𝗹𝗶𝘇𝗮𝗱𝗼' 𝘀𝗲 𝗲𝗻𝗰𝗼𝗻𝘁𝗿𝗮 𝘃𝗮𝘇𝗶𝗮");
     } catch (err) {
       console.error(err);
-      await interaction.reply("**❌ 𝗘𝗿𝗿𝗼 **");
+      await interaction.reply("❌ 𝗘𝗿𝗿𝗼");
     }
   },
 };

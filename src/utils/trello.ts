@@ -26,14 +26,11 @@ export async function createList() {
   return response.data;
 }
 
-export async function updateList() {
+export async function updateList(listId: string) {
   const newName = `ChangeLog-${formatDate(new Date().toString())}`;
-  const list = lists.find((l) => l.name == "Finalizado");
-
-  if (!list) return;
 
   const response = await axios.put(
-    `https://api.trello.com/1/lists/${list.id}?name=${newName}&key=${process.env.TRELLO_KEY}&token=${process.env.TRELLO_TOKEN}`
+    `https://api.trello.com/1/lists/${listId}?name=${newName}&key=${process.env.TRELLO_KEY}&token=${process.env.TRELLO_TOKEN}`
   );
 
   return response.data;
